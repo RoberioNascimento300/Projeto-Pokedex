@@ -1,6 +1,5 @@
-const offset = 0;
-const limit = 10;
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+
+
 
 function convertPokemonToLi(pokemon) {
   return `
@@ -25,18 +24,12 @@ function convertPokemonToLi(pokemon) {
 
 const pokemonList = document.getElementById('pokemonList') //Eu tô vindo no meu Html que foi renderizado no meu browser, eu tô pegando a nossa lista de pokemon e ATRIBUINDO a uma variável: pokemonList, então a partir desse momento eu tenho acesso programático ao objeto
  
+pokeApi.getPokemons().then((pokemons = []) => {
+   pokemonList.innerHTML += pokemons.map(convertPokemonToLi).join('')
+   //Olha, pega a lista de pokemons, MAPEIA os pokemons CONVERTENDO esta lista para Li
+   //E agora JUNTA todos esses Li sem separador nenhum 
+   //Isso vai virar um Html NOVO
+   //E eu vou CONCATENAR com o html antigo que eu tinha
+})
 
-fetch(url)
-.then((response) => response.json())
-   .then((jsonBody) => jsonBody.results)
-   .then((pokemons) => {
-    
-   for (let i = 0; i < pokemons.length; i++) {
-      const pokemon = pokemons[i];
-      pokemonList.innerHTML += convertPokemonToLi(pokemon) //A partir desse objeto eu posso MANIPULAR ele e eu tô SOMANDO de dentro da lista um Html dele + um item
-    
-  }
 
-    })
-
-  .catch((error) => console.error(error))
