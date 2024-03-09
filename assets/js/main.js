@@ -1,7 +1,13 @@
 const pokemonList = document.getElementById('pokemonList') //Eu tô vindo no meu Html que foi renderizado no meu browser, eu tô pegando a nossa lista de pokemon e ATRIBUINDO a uma variável: pokemonList, então a partir desse momento eu tenho acesso programático ao objeto
 const loadMoreButton = document.getElementById('loadMoreButton')
-const limit_main = 5 //Precisa renomear a declaração pois já tem a mesma variável declarada no poke-api.js
-let offset_main = 0 //Precisa renomear a declaração pois já tem a mesma variável declarada no poke-api.js
+
+const maxRecords = 11
+const limit_main = 5
+let offset_main = 0;
+
+//1,2,3,4,5         0 - 5
+//6,7,8,9,10        5 - 5
+//11,              10 - 1 (remove o botão)
 
 function loadPokemonItens(offset, limit) {
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
@@ -28,8 +34,21 @@ function loadPokemonItens(offset, limit) {
 loadPokemonItens(offset_main, limit_main)
 
 loadMoreButton.addEventListener('click', () => {
-    offset_main += limit_main //INCREMENTO do offset
-    loadPokemonItens(offset_main, limit_main)
+    offset += limit //INCREMENTO do offset
+  
+
+    const qtdRecordNextWithPage = offset_main + limit_main
+
+    if (qtdRecordNextWithPage >= maxRecords) {
+        const newLimit = maxRecords - offset_main
+        loadPokemonItens(offset_main, limit_main)
+
+        loadMoreButton.parentElement.removeChild(loadMoreButton) //REMOVENDO o botão assim que o limite for estabelecido
+    }else {
+        loadPokemonItens(offset_main, limit_main)
+    }
+
+    
 })
 
 
