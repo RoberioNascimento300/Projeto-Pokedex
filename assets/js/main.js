@@ -1,8 +1,8 @@
 const pokemonList = document.getElementById('pokemonList') //Eu tô vindo no meu Html que foi renderizado no meu browser, eu tô pegando a nossa lista de pokemon e ATRIBUINDO a uma variável: pokemonList, então a partir desse momento eu tenho acesso programático ao objeto
 const loadMoreButton = document.getElementById('loadMoreButton')
 
-const maxRecords = 11
-const limit_main = 5
+const maxRecords = 151
+const limit_main = 10
 let offset_main = 0;
 
 //1,2,3,4,5         0 - 5
@@ -34,14 +34,14 @@ function loadPokemonItens(offset, limit) {
 loadPokemonItens(offset_main, limit_main)
 
 loadMoreButton.addEventListener('click', () => {
-    offset += limit //INCREMENTO do offset
+    offset_main += limit_main //INCREMENTO do offset
   
 
     const qtdRecordNextWithPage = offset_main + limit_main
 
     if (qtdRecordNextWithPage >= maxRecords) {
         const newLimit = maxRecords - offset_main
-        loadPokemonItens(offset_main, limit_main)
+        loadPokemonItens(offset_main, newLimit)
 
         loadMoreButton.parentElement.removeChild(loadMoreButton) //REMOVENDO o botão assim que o limite for estabelecido
     }else {
