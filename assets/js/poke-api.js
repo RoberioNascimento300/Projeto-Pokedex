@@ -27,7 +27,7 @@ pokeApi.getPokemonDetail = (pokemon) => {
             .then(convertPokeApiDetailToPokemon)         
 }
 
-pokeApi.getPokemons = (offset = 0, limit = 20) => {
+pokeApi.getPokemons = (offset = 0, limit = 5) => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
     
     return fetch(url) // quero retornar a lista de pokemon pronta. Para que ninguém fora do bloco aq tenha que entender como manipular uma resposta de uma pokeApi
